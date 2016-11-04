@@ -1,6 +1,11 @@
 <?php
 
 require_once './functions.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $validation = loginValidate($_POST['username'], $_POST['password']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,5 +21,12 @@ require_once './functions.php';
         <input type="password" name="password">
         <input type="submit" value="Logga in">
     </form>
+    <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($validation !== TRUE) {
+                echo $validation;
+            }
+        }
+    ?>
 </body>
 </html>
