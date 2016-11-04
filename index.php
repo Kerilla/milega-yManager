@@ -1,3 +1,7 @@
+<?php
+
+require_once './functions.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +11,10 @@
 	<title>Milega yManager</title>
 </head>
 <body>
-	
+    <form action="index.php" name="loginForm" method="POST">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit" value="Logga in">
+    </form>
 </body>
 </html>
