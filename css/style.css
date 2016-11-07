@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'San Francisco';
+    src: url('fonts/SanFranciscoText-Regular.otf');
+}
+
+h1.logo {
+    font-family: 'San Francisco', sans-serif;
+}
