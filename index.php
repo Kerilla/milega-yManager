@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </header>
         <section class="mainContent">
             <form action="index.php" name="loginForm" method="POST">
-                <input type="text" name="username">
-                <input type="password" name="password">
+                <input type="text" name="username" placeholder="Användarnamn">
+                <input type="password" name="password" placeholder="Lösenord">
                 <input type="submit" value="Logga in">
             </form>
         </section>
