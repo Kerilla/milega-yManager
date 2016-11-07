@@ -16,5 +16,8 @@ function loginValidate($username, $password) {
     $usernameSanitized = filter_var($username, FILTER_SANITIZE_STRING);
     $passwordSanitized = filter_var($password, FILTER_SANITIZE_STRING);
 
-    
+    if (!in_array($usernameSanitized, $usersTable[0])) {
+        return "Fel användarnamn eller lösenord.";
+    }
+
 }
