@@ -1,4 +1,7 @@
-<?php require_once './functions.php'; ?>
+<?php
+    require_once './functions.php';
+    $loggedIn = checkLogin();
+?>
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -14,7 +17,7 @@
     <?php
         require_once './template/header.php'; // Get the header
 
-        if (!isset($_SESSION['isLoggedIn'])) {
+        if (!$loggedIn) {
             include './template/loginform.php'; // Send to login page if user is not logged in
 
         } elseif ($_SESSION['userRole'] === 1) {

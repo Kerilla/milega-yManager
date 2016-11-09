@@ -1,7 +1,4 @@
 <?php
-// Start session
-session_start();
-
 // Global requires
 require_once './lib/db.php';
 
@@ -38,4 +35,10 @@ function loginValidate($username, $password, $dbQuery)
         return true;
     }
 
+}
+
+function checkLogin()
+{
+    session_start();
+    return isset($_SESSION['isLoggedIn']);
 }
