@@ -1,6 +1,4 @@
 <?php
-// Start session
-session_start();
 
 // Global requires
 require_once './lib/db.php';
@@ -21,7 +19,7 @@ function loginValidate($username, $password, $dbQuery)
     // Execute prepared statement from db.php
     $dbQuery->execute([
         ':username' => $usernameSanitized,
-        ':password' => $passwordSanitized
+        ':password' => $passwordSanitized // !!! Should be set to verify hash in future
     ]);
 
     // Assign variable to query result
@@ -31,11 +29,16 @@ function loginValidate($username, $password, $dbQuery)
     if (!$userRow) {
         return false; // If Query is false, function should also return false
     } else {
-
         // If query returns a user we should set a session variable for logged in and which role the user has
         $_SESSION['isLoggedIn'] = true;
         $_SESSION['userRole'] = $userRow['roleID'];
         return true;
     }
 
+}
+
+function checkLogin()
+{
+    session_start();
+    return isset($_SESSION['isLoggedIn']);
 }

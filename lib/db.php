@@ -12,6 +12,6 @@ try {
     die($e->getMessage());
 }
 
-// Prepare Query for user validation
+// Prepare Query for user validation. Should only return true if match is found
 $userQueryString = 'SELECT * FROM users WHERE username = :username AND password = :password LIMIT 1;';
 $userQuery = $db->prepare($userQueryString);
