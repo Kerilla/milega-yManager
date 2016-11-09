@@ -11,4 +11,3 @@
 <body>
     <main class="mainWrapper">
         <?php require_once './template/header.php'; ?>
-    </main>
