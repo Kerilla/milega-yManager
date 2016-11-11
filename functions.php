@@ -25,7 +25,7 @@ function loginValidate($username, $password, $dbQuery)
     $userRow = $dbQuery->fetch(PDO::FETCH_ASSOC);
 
     // Query returns false if there are no matches for username and password
-    if (!$userRow || !password_verify($password, $userRow['password'])) {
+    if (!$userRow || !password_verify($passwordSanitized, $userRow['password'])) {
         $_SESSION['error'] = 'Fel användarnamn eller lösenord';
         return false; // If Query is false, function should also return false
     } else {
