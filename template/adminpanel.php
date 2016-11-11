@@ -1,6 +1,6 @@
 <?php
 
-require '../lib/db.php';
+require '../lib/db.php'; // Remove when adding it to the regular flow
 
 // Validate the input fields when adding user
 function userAddFormValidate($firstName,$lastName,$company,$profession,$email,$phone,$username,$password)
@@ -92,5 +92,20 @@ function addNewUser($db, $statement, $userDataArray)
         <input type="text" name="username" placeholder="Användarnamn">
         <input type="password" name="password" placeholder="Lösenord">
         <input type="submit" value="Lägg till">
+        <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                if (!userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password'])) {
+                    echo '<h4 class="errormessage">'.$_SESSION['error'].'</h4>';
+                    unset($_SESSION['error']);
+                }  else {
+                    $inputArray = userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password']);
+                    if (!addNewUser($db, $adminAdd, $inputArray)) {
+                        echo '<h4 class="errormessage">Någonting gick fel. Var vänlig försök igen.</h4>';
+                    } else {
+                        echo "Administratören lades till i databasen.";
+                    }
+                }
+            }
+        ?>
     </form>
 </section>

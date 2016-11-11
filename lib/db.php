@@ -23,3 +23,11 @@ VALUES (2,:firstName,:lastName,:company,:profession,:email,:phone,:username,:pas
 EOT;
 
 $userAdd = $db->prepare($userAddString);
+
+// Prepare Query for adding new admin user
+$adminAddString = <<<EOT
+INSERT INTO users (roleID,firstName,lastName,company,profession,email,phone,username,password)
+VALUES (1,:firstName,:lastName,:company,:profession,:email,:phone,:username,:password);
+EOT;
+
+$adminAdd = $db->prepare($adminAddString);
