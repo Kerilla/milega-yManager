@@ -1,7 +1,5 @@
 <?php
 
-require '../lib/db.php'; // Remove when adding it to the regular flow
-
 // Validate the input fields when adding user
 function userAddFormValidate($firstName,$lastName,$company,$profession,$email,$phone,$username,$password)
 {
@@ -49,7 +47,29 @@ function addNewUser($db, $statement, $userDataArray)
     ]);
 }
 
+// Function for logging out
+function logout()
+{
+    $_SESSION = [];
+    session_destroy();
+    header('Location: ./');
+    die();
+}
+
 ?>
+<section class="adminpanelHeader">
+    <h1>Administrationspanel</h1>
+    <div class="userOptions">
+        <form action="./" class="logout" method="POST">
+            <input type="submit" name="logout" value="Logga ut">
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+                    logout();
+                }
+            ?>
+        </form>
+    </div>
+</section>
 <section class="addNewUser">
     <h2>Lägg till ny användare</h2>
     <form name="addUser" action="adminpanel.php" method="POST">
