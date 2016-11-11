@@ -13,7 +13,7 @@ try {
 }
 
 // Prepare Query for user validation
-$userQueryString = 'SELECT * FROM users WHERE username = :username AND password = :password LIMIT 1;';
+$userQueryString = 'SELECT * FROM users WHERE username = :username OR email = :email LIMIT 1;';
 $userQuery = $db->prepare($userQueryString);
 
 // Prepare Query for adding regular users

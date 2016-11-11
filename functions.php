@@ -18,14 +18,15 @@ function loginValidate($username, $password, $dbQuery)
     // Execute prepared statement from db.php
     $dbQuery->execute([
         ':username' => $usernameSanitized,
-        ':password' => $passwordSanitized
+        ':email' => $usernameSanitized
     ]);
 
     // Assign variable to query result
     $userRow = $dbQuery->fetch(PDO::FETCH_ASSOC);
 
     // Query returns false if there are no matches for username and password
-    if (!$userRow) {
+    if (!$userRow || !password_verify($password, $userRow['password'])) {
+        $_SESSION['error'] = 'Fel användarnamn eller lösenord';
         return false; // If Query is false, function should also return false
     } else {
 
