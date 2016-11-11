@@ -30,7 +30,7 @@ function loginValidate($username, $password, $dbQuery)
         return false; // If Query is false, function should also return false
     } else {
 
-        // If query returns a user we should set a session variable for logged in and which role the user has
+        // If login is successful we should set a session variable for logged in and which role the user has
         $_SESSION['isLoggedIn'] = true;
         $_SESSION['userRole'] = $userRow['roleID'];
         return true;
