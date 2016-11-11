@@ -1,58 +1,19 @@
-<?php
-
-require '../lib/db.php'; // Remove when adding it to the regular flow
-
-// Validate the input fields when adding user
-function userAddFormValidate($firstName,$lastName,$company,$profession,$email,$phone,$username,$password)
-{
-    $valid = true;
-
-    if ($firstName === '' || $lastName === '' || $username === '' || $password === '') {
-        $_SESSION['error'] = 'Var vänlig fyll i alla obligatoriska fält';
-        $valid = false;
-        die();
-    }
-
-    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['error'] = 'E-postadressen är inte rätt ifylld.';
-        $valid = false;
-        die();
-    }
-
-    $valid = [
-        'firstName' => $firstName,
-        'lastName' => $lastName,
-        'company' => $company,
-        'profession' => $profession,
-        'email' => $email,
-        'phone' => $phone,
-        'username' => $username,
-        'password' => $password
-    ];
-
-    return $valid;
-
-}
-
-// Function for add a new regular user
-function addNewUser($db, $statement, $userDataArray)
-{
-    $statement->execute([
-        ':firstName' => $userDataArray['firstName'],
-        ':lastName' => $userDataArray['lastName'],
-        ':company' => $userDataArray['company'],
-        ':profession' => $userDataArray['profession'],
-        ':email' => $userDataArray['email'],
-        ':phone' => $userDataArray['phone'],
-        ':username' => $userDataArray['username'],
-        ':password' => password_hash($userDataArray['password'], PASSWORD_BCRYPT)
-    ]);
-}
-
-?>
+<section class="adminpanelHeader">
+    <h1>Administrationspanel</h1>
+    <div class="userOptions">
+        <form action="./" class="logout" method="POST">
+            <input type="submit" name="logout" value="Logga ut">
+            <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+                    logout();
+                }
+            ?>
+        </form>
+    </div>
+</section>
 <section class="addNewUser">
-    <h1>Lägg till ny användare</h1>
-    <form action="adminpanel.php" method="POST">
+    <h2>Lägg till ny användare</h2>
+    <form name="addUser" action="adminpanel.php" method="POST">
         <input type="text" name="user_firstName" placeholder="Förnamn" required>
         <input type="text" name="user_lastName" placeholder="Efternamn" required>
         <input type="text" name="user_company" placeholder="Organisation">
@@ -78,16 +39,16 @@ function addNewUser($db, $statement, $userDataArray)
 </section>
 
 <section class="addNewAdmin">
-    <h1>Lägg till ny administratör</h1>
-    <form action="adminpanel.php" method="POST">
-        <input type="text" name="admin_firstName" placeholder="Förnamn">
-        <input type="text" name="admin_lastName" placeholder="Efternamn">
+    <h2>Lägg till ny administratör</h2>
+    <form name="addAdmin" action="adminpanel.php" method="POST">
+        <input type="text" name="admin_firstName" placeholder="Förnamn" required>
+        <input type="text" name="admin_lastName" placeholder="Efternamn" required>
         <input type="text" name="admin_company" placeholder="Organisation">
         <input type="text" name="admin_profession" placeholder="Titel">
         <input type="email" name="admin_email" placeholder="E-post">
         <input type="text" name="admin_phone" placeholder="Telefonnummer">
-        <input type="text" name="admin_username" placeholder="Användarnamn">
-        <input type="password" name="admin_password" placeholder="Lösenord">
+        <input type="text" name="admin_username" placeholder="Användarnamn" required>
+        <input type="password" name="admin_password" placeholder="Lösenord" required>
         <input type="submit" value="Lägg till">
         <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_firstName'])){
