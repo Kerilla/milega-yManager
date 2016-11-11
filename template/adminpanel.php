@@ -53,27 +53,24 @@ function addNewUser($db, $statement, $userDataArray)
 <section class="addNewUser">
     <h1>Lägg till ny användare</h1>
     <form action="adminpanel.php" method="POST">
-        <input type="text" name="firstName" placeholder="Förnamn" required>
-        <input type="text" name="lastName" placeholder="Efternamn" required>
-        <input type="text" name="company" placeholder="Organisation">
-        <input type="text" name="profession" placeholder="Titel">
-        <input type="email" name="email" placeholder="E-post">
-        <input type="text" name="phone" placeholder="Telefonnummer">
-        <input type="text" name="username" placeholder="Användarnamn" required>
-        <input type="password" name="password" placeholder="Lösenord" required>
+        <input type="text" name="user_firstName" placeholder="Förnamn" required>
+        <input type="text" name="user_lastName" placeholder="Efternamn" required>
+        <input type="text" name="user_company" placeholder="Organisation">
+        <input type="text" name="user_profession" placeholder="Titel">
+        <input type="email" name="user_email" placeholder="E-post">
+        <input type="text" name="user_phone" placeholder="Telefonnummer">
+        <input type="text" name="user_username" placeholder="Användarnamn" required>
+        <input type="password" name="user_password" placeholder="Lösenord" required>
         <input type="submit" value="Lägg till">
         <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if (!userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_firstName'])){
+                if (!userAddFormValidate($_POST['user_firstName'], $_POST['user_lastName'], $_POST['user_company'], $_POST['user_profession'], $_POST['user_email'], $_POST['user_phone'], $_POST['user_username'], $_POST['user_password'])) {
                     echo '<h4 class="errormessage">'.$_SESSION['error'].'</h4>';
                     unset($_SESSION['error']);
                 }  else {
-                    $inputArray = userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password']);
-                    if (!addNewUser($db, $userAdd, $inputArray)) {
-                        echo '<h4 class="errormessage">Någonting gick fel. Var vänlig försök igen.</h4>';
-                    } else {
-                        echo "Användaren lades till i databasen.";
-                    }
+                    $inputArray = userAddFormValidate($_POST['user_firstName'], $_POST['user_lastName'], $_POST['user_company'], $_POST['user_profession'], $_POST['user_email'], $_POST['user_phone'], $_POST['user_username'], $_POST['user_password']);
+                    addNewUser($db, $userAdd, $inputArray);
+                    echo "Användaren lades till i databasen.";
                 }
             }
         ?>
@@ -83,27 +80,24 @@ function addNewUser($db, $statement, $userDataArray)
 <section class="addNewAdmin">
     <h1>Lägg till ny administratör</h1>
     <form action="adminpanel.php" method="POST">
-        <input type="text" name="firstName" placeholder="Förnamn">
-        <input type="text" name="lastName" placeholder="Efternamn">
-        <input type="text" name="company" placeholder="Organisation">
-        <input type="text" name="profession" placeholder="Titel">
-        <input type="email" name="email" placeholder="E-post">
-        <input type="text" name="phone" placeholder="Telefonnummer">
-        <input type="text" name="username" placeholder="Användarnamn">
-        <input type="password" name="password" placeholder="Lösenord">
+        <input type="text" name="admin_firstName" placeholder="Förnamn">
+        <input type="text" name="admin_lastName" placeholder="Efternamn">
+        <input type="text" name="admin_company" placeholder="Organisation">
+        <input type="text" name="admin_profession" placeholder="Titel">
+        <input type="email" name="admin_email" placeholder="E-post">
+        <input type="text" name="admin_phone" placeholder="Telefonnummer">
+        <input type="text" name="admin_username" placeholder="Användarnamn">
+        <input type="password" name="admin_password" placeholder="Lösenord">
         <input type="submit" value="Lägg till">
         <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if (!userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password'])) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_firstName'])){
+                if (!userAddFormValidate($_POST['admin_firstName'], $_POST['admin_lastName'], $_POST['admin_company'], $_POST['admin_profession'], $_POST['admin_email'], $_POST['admin_phone'], $_POST['admin_username'], $_POST['admin_password'])) {
                     echo '<h4 class="errormessage">'.$_SESSION['error'].'</h4>';
                     unset($_SESSION['error']);
                 }  else {
-                    $inputArray = userAddFormValidate($_POST['firstName'], $_POST['lastName'], $_POST['company'], $_POST['profession'], $_POST['email'], $_POST['phone'], $_POST['username'], $_POST['password']);
-                    if (!addNewUser($db, $adminAdd, $inputArray)) {
-                        echo '<h4 class="errormessage">Någonting gick fel. Var vänlig försök igen.</h4>';
-                    } else {
-                        echo "Administratören lades till i databasen.";
-                    }
+                    $inputArray = userAddFormValidate($_POST['admin_firstName'], $_POST['admin_lastName'], $_POST['admin_company'], $_POST['admin_profession'], $_POST['admin_email'], $_POST['admin_phone'], $_POST['admin_username'], $_POST['admin_password']);
+                    addNewUser($db, $adminAdd, $inputArray);
+                    echo "Administratören lades till i databasen.";
                 }
             }
         ?>
