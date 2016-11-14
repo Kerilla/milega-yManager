@@ -1,6 +1,12 @@
 <?php
     require_once './functions.php';
     $loggedIn = checkLogin();
+
+    // Check if user has initiated logout sequence
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+        logout();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="sv">

@@ -33,7 +33,7 @@ function loginValidate($username, $password, $dbQuery)
         // If login is successful we should set a session variable for logged in and which role the user has
         $_SESSION['isLoggedIn'] = true;
         $_SESSION['userRole'] = $userRow['roleID'];
-        return true;
+        return $userRow;
     }
 
 }

@@ -12,10 +12,11 @@
                 if ($validation === false) {
 
                     // If false, output error message after form
-                    echo '<h4 style="text-align: center; color: var(--red);">Fel användarnamn eller lösenord.</h4>';
+                    echo '<h4 class="errormessage">Fel användarnamn eller lösenord.</h4>';
                 } else {
 
                     // If login is successful, redirect back to index.php
+                    $loggedInUser = $validation;
                     header('Location: ./index.php');
 
                 }
